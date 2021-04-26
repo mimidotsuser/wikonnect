@@ -28,7 +28,7 @@ describe('Chapter comments when authenticated', () => {
     });
 
     it('should display created comment immediately', () => {
-        const comment = { text: `Test comment randomly at ${Math.random() * 1000000}` };
+        const comment = {text: `Test comment randomly at ${Math.random() * 1000000}`};
 
         cy.get('#chapter .padded form textarea')
             .type(comment.text);
@@ -39,7 +39,6 @@ describe('Chapter comments when authenticated', () => {
 
         cy.get('#chapter .media-body')
             .wait(1000) //TODO can we do better than this wait ?🤔
-            .last()
             .contains(comment.text)
             .should('be.visible')
     });
