@@ -107,15 +107,6 @@ jobs:
   IntegrationTest:
     name: Integration Test
     runs-on: ubuntu-18.04
-    strategy:
-      # when one test fails, DO NOT cancel the other
-      # containers, because this will kill Cypress processes
-      # leaving the Dashboard hanging ...
-      # https://github.com/cypress-io/github-action/issues/48
-      fail-fast: false
-      matrix:
-        # run 3 copies of the current job in parallel
-        containers: [1, 2]
     services:
       # Label used to access the service container
       postgres:
@@ -189,8 +180,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           record: true
-          parallel: true
-          group: "Integration Tests staging branch"
           start: yarn --cwd ./server start, yarn --cwd ./frontend start
           wait-on: "http://localhost:4200"
 
