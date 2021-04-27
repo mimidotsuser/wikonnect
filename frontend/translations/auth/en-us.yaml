@@ -12,6 +12,6 @@ login:
 signup:
   email: Email
   repeat_password: Repeat Password
-  invite_code: Invite Code
+  invite_code: Invite Code - Optional
   signup: Sign Up
   signup_third_party: Sign up with {authProvider}

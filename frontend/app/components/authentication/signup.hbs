@@ -46,7 +46,7 @@
       <BsButton class="btn btn-primary form-control mb-2" @type="submit" @defaultText={{t "auth.signup.signup" }}
         @buttonType="submit" />
 
-      <p class="line-text"><span>{{t "auth.login.or" }}</span></p>
+      <p class="line-text mt-4 mb-4 pt-2"><span>{{t "auth.login.or" }}</span></p>
 
       <BsButton type="button" class="shadow-sm rounded btn-dark btn-linkedIn form-control mb-2" {{ on "click"
         this.authenticateWithLinkedIn}}>
@@ -70,6 +70,11 @@
         authProvider="Facebook"}}
       </BsButton>
 
+      <p class="line-text mt-4 mb-4 pt-2"></p>
+
+      <p class="text-center justify-content-center align-items-center">Already on Wikonnect?
+          <LinkTo @route="login">{{t 'auth.login.login'}}.</LinkTo>
+      </p>
     </BsForm>
   </div>
 </div>

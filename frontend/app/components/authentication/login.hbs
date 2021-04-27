@@ -1,10 +1,5 @@
 <div class="d-flex justify-content-center align-items-center">
   <div class="auth-form">
-    <div class="row rounded">
-      <div class="col">
-        <h1 class="text-light">{{t "auth.login.login" }}</h1>
-      </div>
-    </div>
     <BsForm @class="form" @formLayout="vertical" @model={{@registeredUser}} @onSubmit={{this.login}} as |form|>
       {{#each @registeredUser.errors as |err| }}
       {{#if (eq err.key "errors")}}
@@ -36,7 +31,7 @@
       <BsButton class="bg-primary form-control mb-4" @defaultText={{t "auth.login.login" }} type="submit">
       </BsButton>
 
-      <p class="line-text"><span>{{t "auth.login.or" }}</span></p>
+      <p class="line-text mt-4 mb-4 pt-2"><span>{{t "auth.login.or" }}</span></p>
 
       <BsButton type="button" class="shadow-sm rounded btn-dark btn-linkedIn form-control mb-2" {{ on "click"
         this.authenticateWithLinkedIn}}>
@@ -44,14 +39,16 @@
         authProvider="LinkedIn"}}
       </BsButton>
 
-      <BsButton type="button" class="shadow-sm rounded btn-dark form-control mb-2" {{ on "click"
-        this.authenticateWithGitHub}}>
-        <span class="px-2">{{svg-jar "github-icon"}}</span>{{t "auth.login.login_third_party" authProvider="GitHub"}}
-      </BsButton>
+
 
       <BsButton type="button" class="shadow-sm border rounded btn-light form-control mb-2" {{ on "click"
         this.authenticateWithGoogleImplicitGrant}}>
         <span class="px-2">{{svg-jar "google-icon"}}</span> {{t "auth.login.login_third_party" authProvider="Google"}}
+      </BsButton>
+
+      <BsButton type="button" class="shadow-sm rounded btn-dark form-control mb-2" {{ on "click"
+        this.authenticateWithGitHub}}>
+        <span class="px-2">{{svg-jar "github-icon"}}</span>{{t "auth.login.login_third_party" authProvider="GitHub"}}
       </BsButton>
 
       <BsButton type="button" class="shadow-sm rounded btn-dark btn-facebook form-control mb-2" {{ on "click"
@@ -60,10 +57,16 @@
         authProvider="Facebook"}}
       </BsButton>
 
+      <p class="line-text mt-4 mb-4 pt-2"></p>
 
+        <p class="text-center justify-content-center align-items-center">New to Wikonnect?
+        <LinkTo @route="signup">{{t 'auth.signup.signup'}}.</LinkTo>
+        </p>
 
       {{/if}}
 
+
     </BsForm>
+
   </div>
 </div>
