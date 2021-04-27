@@ -125,7 +125,6 @@ jobs:
           # Maps tcp port 5432 on service container to the host
           - 5432:5432
 
-    needs: FrontendTest
     steps:
       - uses: actions/checkout@v2
 
@@ -198,29 +197,21 @@ jobs:
         s3-bucket: ["wikonnect-codedeploy-deployments"]
         s3-filename: ["staging-wikonnect-codedeploy-${{ github.sha }}"]
 
-    needs: ["IntegrationTest", "BackendTest"]
+    needs: ["FrontendTest", "IntegrationTest", "BackendTest"]
     steps:
       - uses: actions/checkout@v2
 
       # cache node_modules in our monorepo project instead of caching the yarn cache
       - uses: actions/cache@v2
         with:
-<<<<<<< HEAD
           path: "**/node_modules"
-=======
-          path: '**/node_modules'
->>>>>>> feature/WIK-109-user-management-backend
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
       # Initialize Node.js
       - name: Install Node.js 14.x
         uses: actions/setup-node@v1
         with:
-<<<<<<< HEAD
           node-version: "14.x"
-=======
-          node-version: '14.x'
->>>>>>> feature/WIK-109-user-management-backend
 
       # Wikonnect root install dependencies
       - name: Wikonnect root install dependencies
@@ -234,14 +225,11 @@ jobs:
       - name: Frontend run build
         env:
           GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
-<<<<<<< HEAD
           FACEBOOK_KEY: ${{ secrets.FACEBOOK_KEY }}
           LINKEDIN_CLIENT_ID: ${{ secrets.LINKEDIN_CLIENT_ID }}
           LINKEDIN_REDIRECT_URI: ${{ secrets.LINKEDIN_REDIRECT_URI }}
           GITHUB_CLIENT_ID: ${{ secrets.GITHUB_CLIENT_ID }}
           GITHUB_REDIRECT_URI: ${{ secrets.GITHUB_REDIRECT_URI }}
-=======
->>>>>>> feature/WIK-109-user-management-backend
         run: yarn --cwd ./frontend build --prod
 
       # Install project dependencies, test and build
