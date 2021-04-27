@@ -11,7 +11,6 @@ const log = require('../utils/logger');
  * @param {*} next
  */
 exports.requireAuth = async function (ctx, next) {
-  // try {
   if (ctx.request.header.authorization === undefined || ctx.request.header.authorization.split(' ')[1] === 'undefined') {
     const data = {
       data: {
@@ -35,14 +34,6 @@ exports.requireAuth = async function (ctx, next) {
     log.info('Access granted to %s user', ctx.state.user.data.username);
     await next();
   }
-  // } catch (error) {
-  //   log.error(`The following error ${error} with message ${error.message}`);
-  //   // const envs = ['test', 'development'];
-  //   // if (envs.includes(process.env.NODE_ENV)) {
-  //   //   ctx.throw(error.statusCode, null, { errors: error });
-  //   // }
-  //   ctx.throw(400, null, { errors: ['Bad Request'] });
-  // }
 };
 
 /**
@@ -51,22 +42,13 @@ exports.requireAuth = async function (ctx, next) {
  * @param {*} resource
  */
 exports.grantAccess = function (action, resource) {
-
   return async (ctx, next) => {
-    try {
-      let roleName = ctx.state.user.role == undefined ? ctx.state.user.data.role : ctx.state.user.role;
-
-      const permission = roles.can(roleName)[action](resource);
-
-      if (!permission.granted) {
-        ctx.throw(400, null, { errors: ['Bad Request'] });
-      }
-
-      await next();
-    } catch (error) {
-      log.error(`Bad request with the following message ${error}`);
-      ctx.throw(400, null, { errors: ['Bad Request'] });
+    let roleName = ctx.state.user.role == undefined ? ctx.state.user.data.role : ctx.state.user.role;
+    const permission = roles.can(roleName)[action](resource);
+    if (!permission.granted) {
+      ctx.throw(400, null, { errors: ['Access denied'] });
     }
+    await next();
   };
 };
 
