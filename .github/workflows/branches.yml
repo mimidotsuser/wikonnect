@@ -179,7 +179,6 @@ jobs:
           NODE_ENV: action
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          record: true
           config: pageLoadTimeout=100000,baseUrl=http://localhost:4200
           start: yarn --cwd ./server start, yarn --cwd ./frontend start
           wait-on: "http://localhost:4200"

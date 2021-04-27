@@ -178,7 +178,6 @@ jobs:
           NODE_ENV: action
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          record: true
           start: yarn --cwd ./server start, yarn --cwd ./frontend start
           wait-on: "http://localhost:4200"
 
