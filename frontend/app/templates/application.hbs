@@ -8,12 +8,7 @@
     {{outlet}}
   </div>
   <EmberNotify @closeAfter={{4000}} />
-{{#unless (eq this.route "login")}}
-{{#unless (eq this.route "signup")}}
   <AuthPrompt />
-{{/unless}}
-{{/unless}}
-
 
 {{else }}
 

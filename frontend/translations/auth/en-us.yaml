@@ -8,6 +8,7 @@ login:
   password: Password
   enter_password: Enter Password
   login_third_party: Login with {authProvider}
+  redirect_to_signup: New to Wikonnect?
 
 signup:
   email: Email
@@ -15,3 +16,4 @@ signup:
   invite_code: Invite Code - Optional
   signup: Sign Up
   signup_third_party: Sign up with {authProvider}
+  redirect_to_login: Already on Wikonnect?

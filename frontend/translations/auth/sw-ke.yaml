@@ -8,6 +8,7 @@ login:
   password: Neno La Siri
   enter_password: Andika neno la siri hapa
   login_third_party: Ingia Ukitumia {authProvider}
+  redirect_to_signup: Jisajili hapa
 
 signup:
   email: Barua Pepe
@@ -15,3 +16,4 @@ signup:
   invite_code: Nambari ya Kukaribisha
   signup: Jisajili
   signup_third_party: Jisajili Ukitumia {authProvider}
+  redirect_to_login: Ingia hapa
