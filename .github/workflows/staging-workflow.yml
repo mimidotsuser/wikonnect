@@ -96,13 +96,13 @@ jobs:
           POSTGRES_HOST: localhost
           SEEDS: 25
           POSTGRES_PORT: 5432
-          # NODE_ENV: action
+          NODE_ENV: action
 
       # Install project dependencies, test and build
       - name: Backend testing
         run: yarn --cwd ./server test:local
-        # env:
-          # NODE_ENV: action
+        env:
+          NODE_ENV: action
 
   IntegrationTest:
     name: Integration Test
@@ -169,13 +169,13 @@ jobs:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
           SEEDS: 25
-          # NODE_ENV: action
+          NODE_ENV: action
 
       # Run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v2
         env:
-          # NODE_ENV: action
+          NODE_ENV: action
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
