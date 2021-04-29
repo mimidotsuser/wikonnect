@@ -40,17 +40,9 @@ export default class EmbedController extends Controller {
   }
 
   @action
-<<<<<<< HEAD
-  async dataLoad() {
-    const url = this.callbackUrl;
-    // eslint-disable-next-line no-undef
-    H5P.externalDispatcher.on('xAPI', function (event) {
-      fetch(url, {
-=======
   async onH5PPlayerXAPIEvent(event) {
     if (this.callbackUrl) {
       fetch(this.callbackUrl, {
->>>>>>> origin
         method: 'POST',
         mode: 'cors',
         headers: {
