@@ -107,6 +107,7 @@ jobs:
   IntegrationTest:
     name: Integration Test
     runs-on: ubuntu-18.04
+    needs: ['FrontendTest', 'BackendTest']
     services:
       # Label used to access the service container
       postgres:
@@ -125,7 +126,6 @@ jobs:
           # Maps tcp port 5432 on service container to the host
           - 5432:5432
 
-    needs: FrontendTest
     steps:
       - uses: actions/checkout@v2
 
@@ -176,16 +176,22 @@ jobs:
         uses: cypress-io/github-action@v2
         env:
           NODE_ENV: action
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
+          GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+          GOOGLE_REDIRECT: ${{ secrets.GOOGLE_REDIRECT }}
         with:
+          browser: chrome
           start: yarn --cwd ./server start, yarn --cwd ./frontend start
+          config: pageLoadTimeout=100000,baseUrl=http://localhost:4200
+          config-file: cypress/cypress.json
           wait-on: "http://localhost:4200"
 
       - uses: actions/upload-artifact@v1
         if: failure()
         with:
-          name: cypress-screenshots
-          path: cypress/screenshots
+          name: cypress-videos
+          path: cypress/videos
   deploy:
     name: CD Pipeline
     runs-on: ubuntu-18.04

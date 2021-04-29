@@ -109,6 +109,7 @@ jobs:
   IntegrationTest:
     name: Integration Test
     runs-on: ubuntu-18.04
+    needs: ['FrontendTest', 'BackendTest']
     services:
       # Label used to access the service container
       postgres:
@@ -177,10 +178,15 @@ jobs:
         uses: cypress-io/github-action@v2
         env:
           NODE_ENV: action
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GOOGLE_REFRESH_TOKEN: ${{ secrets.GOOGLE_REFRESH_TOKEN }}
+          GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
+          GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+          GOOGLE_REDIRECT: ${{ secrets.GOOGLE_REDIRECT }}
         with:
-          config: pageLoadTimeout=100000,baseUrl=http://localhost:4200
+          browser: chrome
           start: yarn --cwd ./server start, yarn --cwd ./frontend start
+          config: pageLoadTimeout=100000,baseUrl=http://localhost:4200
+          config-file: cypress/cypress.json
           wait-on: "http://localhost:4200"
 
       - uses: actions/upload-artifact@v1
