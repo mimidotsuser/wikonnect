@@ -28,7 +28,7 @@ describe('Chapter comments when authenticated', () => {
     });
 
     // it('should display created comment immediately', () => {
-    //     const comment = {text: `Test comment randomly at ${Math.random() * 1000000}`};
+    //     const comment = { text: `Test comment randomly at ${Math.random() * 1000000}` };
 
     //     cy.get('#chapter .padded form textarea')
     //         .type(comment.text);
