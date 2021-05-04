@@ -413,6 +413,119 @@ define({ "api": [
     "groupTitle": "Achievements"
   },
   {
+    "type": "post",
+    "url": "/api/v1/auth/forgot_password",
+    "title": "POST forgot user route.",
+    "name": "ForgotPasswordRoute",
+    "group": "Authentication",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "auth[email]",
+            "description": "<p>emailAddress</p>"
+          }
+        ]
+      }
+    },
+    "permission": [
+      {
+        "name": "basic"
+      }
+    ],
+    "sampleRequest": [
+      {
+        "url": "https://localhost:3000/api/v1/auth/forgot_password"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "errors",
+            "description": "<p>Bad Request.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "server/routes/auth.js",
+    "groupTitle": "Authentication"
+  },
+  {
+    "type": "post",
+    "url": "/api/v1/auth/reset_password",
+    "title": "POST new password.",
+    "name": "ForgotPasswordRoute",
+    "group": "Authentication",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "auth[new_password]",
+            "description": "<p>newPassword</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "auth[verify_password]",
+            "description": "<p>verifyPassword</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "auth[token]",
+            "description": "<p>token</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "auth[email]",
+            "description": "<p>email</p>"
+          }
+        ]
+      }
+    },
+    "permission": [
+      {
+        "name": "basic"
+      }
+    ],
+    "sampleRequest": [
+      {
+        "url": "https://localhost:3000/api/v1/auth/reset_password"
+      }
+    ],
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "errors",
+            "description": "<p>Bad Request.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "server/routes/auth.js",
+    "groupTitle": "Authentication"
+  },
+  {
     "type": "get",
     "url": "/api/v1/users/:id",
     "title": "GET a single user using id.",
@@ -763,6 +876,61 @@ define({ "api": [
     "groupTitle": "Authentication"
   },
   {
+    "type": "post",
+    "url": "/api/v1/users/verify",
+    "title": "POST user's email to validate.",
+    "name": "PostLoginAUserEmail",
+    "group": "Authentication",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "user[email]",
+            "description": "<p>emailAddress</p>"
+          }
+        ]
+      }
+    },
+    "permission": [
+      {
+        "name": "basic"
+      }
+    ],
+    "sampleRequest": [
+      {
+        "url": "https://localhost:3000/api/v1/users/verify"
+      }
+    ],
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 201 OK\n{\n  \"user\":{\n     \"email\": \"emailAddress\",\n     \"emailVerified\": \"true\",\n   }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "type": "String",
+            "optional": false,
+            "field": "errors",
+            "description": "<p>Bad Request.</p>"
+          }
+        ]
+      }
+    },
+    "version": "0.0.0",
+    "filename": "server/routes/users.js",
+    "groupTitle": "Authentication"
+  },
+  {
     "type": "put",
     "url": "/users/:id",
     "title": "PUT users data.",
@@ -840,6 +1008,60 @@ define({ "api": [
     "sampleRequest": [
       {
         "url": "https://app.wikonnect.org/users/:id"
+      }
+    ]
+  },
+  {
+    "type": "get",
+    "url": "/api/v1/users/verify",
+    "title": "Validate a users email.",
+    "name": "ValidateAUsersEmail",
+    "group": "Authentication",
+    "version": "0.4.0",
+    "description": "<p>Validate a users email using token sent via email</p>",
+    "permission": [
+      {
+        "name": "[admin, superadmin]"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "authorization",
+            "description": "<p>Bearer &lt;&lt;YOUR_API_KEY_HERE&gt;&gt;</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Required Params": [
+          {
+            "group": "Required Params",
+            "type": "string",
+            "optional": false,
+            "field": "user[token]",
+            "description": "<p>username</p>"
+          },
+          {
+            "group": "Required Params",
+            "type": "string",
+            "optional": false,
+            "field": "user[email]",
+            "description": "<p>Unique email</p>"
+          }
+        ]
+      }
+    },
+    "filename": "server/routes/users.js",
+    "groupTitle": "Authentication",
+    "sampleRequest": [
+      {
+        "url": "https://app.wikonnect.org/api/v1/users/verify"
       }
     ]
   },
@@ -5049,71 +5271,25 @@ define({ "api": [
             "type": "String",
             "optional": false,
             "field": "id",
-            "description": "<p>user role id</p>"
+            "description": "<p>user id</p>"
           }
         ],
         "Params": [
           {
             "group": "Params",
             "type": "String",
-            "optional": true,
+            "optional": false,
             "field": "groupId",
-            "description": "<p>filter by groupId</p>"
+            "description": "<p>New group id to be updated</p>"
           }
         ]
       }
     },
     "success": {
-      "fields": {
-        "Success 200": [
-          {
-            "group": "Success 200",
-            "type": "Object",
-            "optional": false,
-            "field": "user_role",
-            "description": "<p>Top level object</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "user_role[userId]",
-            "description": "<p>users id</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "user_role[groupId]",
-            "description": "<p>associated group name Id</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "user_role[createdAt]",
-            "description": "<p>date created</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "user_role[updatedAt]",
-            "description": "<p>date updated</p>"
-          },
-          {
-            "group": "Success 200",
-            "type": "String",
-            "optional": false,
-            "field": "user_role[group]",
-            "description": "<p>group details object</p>"
-          }
-        ]
-      },
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n\"user_role\": [\n     {\n       \"userId\": \"user1\",\n       \"groupId\": \"groupAdmin\",\n       \"createdAt\": \"2019-12-20T16:17:10.000Z\",\n       \"updatedAt\": \"2019-12-20T16:17:10.000Z\",\n       \"group\": [{\n           \"id\": \"groupAdmin\",\n           \"name\": \"admin\",\n           \"slug\": \"role-admin\",\n           \"description\": \"\",\n           \"metadata\": null,\n           \"createdAt\": \"2019-12-20T16:17:10.000Z\",\n           \"updatedAt\": \"2019-12-20T16:17:10.000Z\",\n           \"type\": \"userRoles\"\n       }]\n     }\n ]",
+          "content": "HTTP/1.1 200 OK\n{\n   \"user_role\": [{\n       \"userId\": \"user1\",\n       \"groupId\": \"groupBasic\",\n       \"createdAt\": \"2019-12-20T16:17:10.000Z\",\n       \"updatedAt\": \"2021-04-26T20:11:24.764Z\"\n   }]\n }",
           "type": "json"
         }
       ]
