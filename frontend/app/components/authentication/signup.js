@@ -33,6 +33,11 @@ export default class AuthenticationSignupComponent extends Component {
   }
 
   @action
+  authenticateWithLinkedIn() {
+    this.session.authenticate('authenticator:torii', 'linkedin');
+  }
+
+  @action
   createUser(model) {
     let fields = model.getProperties(
       'username',
