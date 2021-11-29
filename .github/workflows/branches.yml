@@ -7,7 +7,7 @@ on:
 
 jobs:
   FrontendTest:
-    name: Test Wikonnect Frontend
+    name:  Frontend Lint test
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -50,7 +50,7 @@ jobs:
         run: yarn  --cwd ./frontend lint:js
 
   BackendTest:
-    name: Test Wikonnect Backend
+    name: Backend Lint test
     runs-on: ubuntu-18.04
     services:
       # Label used to access the service container
